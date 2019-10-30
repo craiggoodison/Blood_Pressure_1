@@ -1,3 +1,5 @@
+package ca.bcit.blood_pressure_1;
+
 public class Patient {
 
         String patientId;
@@ -46,16 +48,28 @@ public class Patient {
         }
 
 
-    public Integer geDiastolicReading() {return diastolicReading;}
+        public Integer geDiastolicReading() {return diastolicReading;}
 
-    public void seDiastolicReading(Integer systolicReading) {
-        this.systolicReading = systolicReading;
+        public void seDiastolicReading(Integer systolicReading) {
+            this.systolicReading = systolicReading;
+        }
+
+        public String condition() {return condition;}
+
+        public void condition(String condition) {
+            this.condition = condition;
+        }
+        public String getReadingTime() {return readingTime;}
+
+        public void setReadingTime(String readingTime) {
+            this.readingTime = readingTime;
+        }
+        public String getReadingDate() {return readingDate;}
+
+        public void setReadingDate(String readingDate) {
+            this.readingDate = readingDate;
+        }
+
     }
 
-
-    }
-
-
-
-
-}
+    
