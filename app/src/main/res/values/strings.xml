@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Blood_Pressure_1</string>
+    <string name="userID">User ID</string>
+    <string name="readingDate">Reading Date</string>
+    <string name="readingTime">Reading Time</string>
+    <string name="systolicReading">Systolic Reading</string>
+    <string name="diastolicReading">Diastolic Reading</string>
+    <string name="condition">Condition</string>
 </resources>
