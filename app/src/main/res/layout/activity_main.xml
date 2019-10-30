@@ -156,7 +156,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/submit"
-            android:background="#6292D5"/>
+            android:background="#6292D5"
+            android:onClick="setCondition"/>
 
     </LinearLayout>
 
