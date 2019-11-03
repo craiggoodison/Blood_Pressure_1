@@ -56,12 +56,12 @@ public class MainActivity extends AppCompatActivity {
         time.setText(currTime);
         date.setText(currDate);
 
-        databaseBloodPressure = FirebaseDatabase.getInstance().getReference("patients");
+        databaseBloodPressure = FirebaseDatabase.getInstance().getReference("BloodPressure");
 
         editTextPatientId = findViewById(R.id.etUserID);
         readingDateValue = findViewById(R.id.tvReadingDateValue);
         readingTimeValue = findViewById(R.id.tvReadingTimeValue);
-        readingCondition = findViewById(R.id.tvCondition);
+        readingCondition = findViewById(R.id.etCondition);
         systolicReading = findViewById(R.id.etSystolicReading);
         diastolicReading = findViewById(R.id.etDiastolicReading);
         buttonAddPatient = findViewById(R.id.btnSubmit);
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         String condition = readingCondition.getText().toString().trim();
         int systolicReadingValue = Integer.parseInt(systolicReading.getText().toString());
         int diastolicReadingValue = Integer.parseInt(diastolicReading.getText().toString());
-        
+
 //            String lastName = editTextLastName.getText().toString().trim();
 //            String school = spinnerSchool.getSelectedItem().toString().trim();
 

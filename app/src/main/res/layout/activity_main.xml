@@ -140,13 +140,14 @@
                 android:layout_marginBottom="16dp"
                 android:text="@string/condition" />
 
-            <TextView
-                android:id="@+id/tvCondition"
+            <EditText
+                android:id="@+id/etCondition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="16dp"
+                android:hint="Enter Condition"/>
 
         </LinearLayout>
 
