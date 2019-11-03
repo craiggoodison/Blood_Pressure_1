@@ -3,17 +3,15 @@ package ca.bcit.blood_pressure_1;
 public class Patient {
 
         String patientId;
-        String patientFirstName;
-        String patientLastName;
-        Integer systolicReading;
-        Integer diastolicReading;
+        int systolicReading;
+        int diastolicReading;
         String condition;
         String readingTime;
         String readingDate;
 
         public Patient() {}
 
-        public Patient(String patientId, Integer systolicReading, Integer diastolicReading,
+        public Patient(String patientId, int systolicReading, int diastolicReading,
                        String condition, String readingTime,  String readingDate) {
             this.patientId = patientId;
             this.systolicReading = systolicReading;
@@ -41,16 +39,15 @@ public class Patient {
 //            this.studentLastName = studentLastName;
 //        }
 
-        public Integer getSystolicReading() {return systolicReading;}
+        public int getSystolicReading() {return systolicReading;}
 
-        public void setSystolicReading(Integer systolicReading) {
+        public void setSystolicReading(int systolicReading) {
             this.systolicReading = systolicReading;
         }
 
+        public int getDiastolicReading() {return diastolicReading;}
 
-        public Integer geDiastolicReading() {return diastolicReading;}
-
-        public void seDiastolicReading(Integer systolicReading) {
+        public void setDiastolicReading(int systolicReading) {
             this.systolicReading = systolicReading;
         }
 
