@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     EditText diastolicReading;
 
     DatabaseReference databaseBloodPressure;
-
+//added
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
