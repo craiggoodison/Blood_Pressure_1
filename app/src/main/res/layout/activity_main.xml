@@ -17,21 +17,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tvUserID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:text="@string/userID" />
+            <TextView
+                android:id="@+id/tvUserID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="@string/userID" />
 
-        <EditText
-            android:id="@+id/etUserID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:autofillHints="@string/userID"
-            android:ems="10"
-            android:inputType="textPersonName" />
+            <EditText
+                android:id="@+id/etUserID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:autofillHints="@string/userID"
+                android:ems="10"
+                android:inputType="textPersonName" />
 
 
         </LinearLayout>
@@ -102,7 +102,6 @@
                 android:ems="10"
                 android:inputType="numberDecimal" />
 
-
         </LinearLayout>
 
         <LinearLayout
@@ -158,6 +157,15 @@
             android:layout_marginTop="24dp"
             android:text="@string/submit"
             android:background="#6292D5" />
+
+        <Button
+            android:id="@+id/btnHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/history"
+            android:background="#B64DA2"
+            android:onClick="openHistory" />
 
     </LinearLayout>
 

@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -183,6 +184,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void hypertensiveWarning(View view) {
         Toast.makeText(this, "CONSULT YOUR DOCTOR IMMEDIATELY", Toast.LENGTH_LONG).show();
+    }
+
+    public void openHistory(View view) {
+        Intent intent = new Intent(this, History.class);
+        startActivity(intent);
     }
 
 }
