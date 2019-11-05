@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         editTextPatientId = findViewById(R.id.etUserID);
         readingDateValue = findViewById(R.id.tvReadingDateValue);
         readingTimeValue = findViewById(R.id.tvReadingTimeValue);
-        readingCondition = findViewById(R.id.etCondition);
+        readingCondition = findViewById(R.id.tvCondition);
         systolicReading = findViewById(R.id.etSystolicReading);
         diastolicReading = findViewById(R.id.etDiastolicReading);
         buttonAddPatient = findViewById(R.id.btnSubmit);
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         buttonAddPatient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addPatient();
+                setCondition(v);
             }
         });
 
@@ -127,12 +127,52 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void setCondition() {
-        systolicReading = findViewById(R.id.etSystolicReading);
-        diastolicReading = findViewById(R.id.etDiastolicReading);
+    public void setCondition(View view) {
+        final String normal = "Normal";
+        final String elevated = "Elevated";
+        final String stage1 = "High Blood Pressure (Stage 1)";
+        final String stage2 = "High Blood Pressure (Stage 2)";
+        final String hypertensiveCrisis = "Hypertensive Crisis";
         int systolic = Integer.parseInt(systolicReading.getText().toString());
         int diastolic = Integer.parseInt(diastolicReading.getText().toString());
 
+        if (systolic < 120) {
+            if (diastolic < 80) {
+                readingCondition.setText(normal);
+            } else if (diastolic <= 89) {
+                readingCondition.setText(stage1);
+            } else if (diastolic <= 120) {
+                readingCondition.setText(stage2);
+            } else {
+                readingCondition.setText(hypertensiveCrisis);
+            }
+        } else if (systolic <= 129) {
+            if (diastolic < 80) {
+                readingCondition.setText(elevated);
+            } else if (diastolic <= 89) {
+                readingCondition.setText(stage1);
+            } else if (diastolic <= 120) {
+                readingCondition.setText(stage2);
+            } else {
+                readingCondition.setText(hypertensiveCrisis);
+            }
+        } else if (systolic <= 139) {
+            if (diastolic > 120) {
+                readingCondition.setText(hypertensiveCrisis);
+            } else if (diastolic >= 90) {
+                readingCondition.setText(stage2);
+            } else {
+                readingCondition.setText(stage1);
+            }
+        } else if (systolic <= 180) {
+            if (diastolic > 120) {
+                readingCondition.setText(hypertensiveCrisis);
+            } else {
+                readingCondition.setText(stage2);
+            }
+        } else {
+            readingCondition.setText(hypertensiveCrisis);
+        }
     }
 
 }
