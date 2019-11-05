@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setCondition(v);
+                addPatient();
             }
         });
 
@@ -145,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
                 readingCondition.setText(stage2);
             } else {
                 readingCondition.setText(hypertensiveCrisis);
+                hypertensiveWarning(view);
             }
         } else if (systolic <= 129) {
             if (diastolic < 80) {
@@ -155,10 +157,12 @@ public class MainActivity extends AppCompatActivity {
                 readingCondition.setText(stage2);
             } else {
                 readingCondition.setText(hypertensiveCrisis);
+                hypertensiveWarning(view);
             }
         } else if (systolic <= 139) {
             if (diastolic > 120) {
                 readingCondition.setText(hypertensiveCrisis);
+                hypertensiveWarning(view);
             } else if (diastolic >= 90) {
                 readingCondition.setText(stage2);
             } else {
@@ -167,12 +171,18 @@ public class MainActivity extends AppCompatActivity {
         } else if (systolic <= 180) {
             if (diastolic > 120) {
                 readingCondition.setText(hypertensiveCrisis);
+                hypertensiveWarning(view);
             } else {
                 readingCondition.setText(stage2);
             }
         } else {
             readingCondition.setText(hypertensiveCrisis);
+            hypertensiveWarning(view);
         }
+    }
+
+    public void hypertensiveWarning(View view) {
+        Toast.makeText(this, "CONSULT YOUR DOCTOR IMMEDIATELY", Toast.LENGTH_LONG).show();
     }
 
 }
