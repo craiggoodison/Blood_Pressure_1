@@ -120,6 +120,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Adds patient into Firebase Database.
+     */
     private void addPatient() {
         String patientId = editTextPatientId.getText().toString().trim();
         String readingTime = readingTimeValue.getText().toString().trim();
@@ -163,8 +166,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-
+    /**
+     * Determines condition based on systolic and diastolic readings.
+     * @param view
+     */
     public void setCondition(View view) {
         final String normal = "Normal";
         final String elevated = "Elevated";
@@ -218,10 +223,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Long toast when patient is in hypertensive crisis.
+     * @param view
+     */
     public void hypertensiveWarning(View view) {
         Toast.makeText(this, "CONSULT YOUR DOCTOR IMMEDIATELY", Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Updates patient information.
+     * @param patientId
+     * @param systolicReading
+     * @param diastolicReading
+     * @param condition
+     * @param readingTime
+     * @param readingDate
+     */
     private void updatePatient(String patientId, int systolicReading, int diastolicReading,
                                String condition, String readingTime, String readingDate ) {
 
@@ -249,6 +267,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * Update dialog when list item is selected.
+     * @param patientId
+     * @param systolicReading
+     * @param diastolicReading
+     * @param condition
+     * @param readingDate
+     * @param readingTime
+     */
     private void showUpdateDialog(final String patientId, int systolicReading, int diastolicReading,
                                   String condition, final String readingDate, final String readingTime) {
 
