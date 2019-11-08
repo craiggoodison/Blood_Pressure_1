@@ -51,7 +51,7 @@ public class Patient {
             this.systolicReading = systolicReading;
         }
 
-        public String condition() {return condition;}
+        public String getCondition() {return condition;}
 
         public void condition(String condition) {
             this.condition = condition;
