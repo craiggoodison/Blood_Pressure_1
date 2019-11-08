@@ -50,7 +50,7 @@ public class Patient {
         public void setDiastolicReading(int systolicReading) {
             this.systolicReading = systolicReading;
         }
-
+//added
         public String getCondition() {return condition;}
 
         public void condition(String condition) {
