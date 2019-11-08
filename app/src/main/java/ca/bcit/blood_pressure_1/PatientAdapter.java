@@ -11,22 +11,22 @@ import androidx.annotation.NonNull;
 
 import java.util.List;
 
-public class BloodPressureAdapter extends ArrayAdapter<BloodPressure> {
+public class PatientAdapter extends ArrayAdapter<Patient> {
 
     private Activity context;
-    private List<BloodPressure> bpList;
+    private List<Patient> patientList;
 
-    public BloodPressureAdapter(Activity context, List<BloodPressure> bpList) {
-        super(context, R.layout.list_layout, bpList);
+    public PatientAdapter(Activity context, List<Patient> patientList) {
+        super(context, R.layout.list_layout, patientList);
         this.context = context;
-        this.bpList = bpList;
+        this.patientList = patientList;
     }
 
-    public BloodPressureAdapter(Activity context, int resource, List<BloodPressure> objects,
-                                Activity context1, List<BloodPressure> bpList) {
+    public PatientAdapter(Activity context, int resource, List<Patient> objects,
+                          Activity context1, List<Patient> patientList) {
         super(context, resource, objects);
         this.context = context1;
-        this.bpList = bpList;
+        this.patientList = patientList;
     }
 
     @NonNull
@@ -43,14 +43,14 @@ public class BloodPressureAdapter extends ArrayAdapter<BloodPressure> {
         TextView tvTime = listViewItem.findViewById(R.id.tvReadingTimeValue);
         TextView tvCondition = listViewItem.findViewById(R.id.tvCondition);
 
-        BloodPressure bp = bpList.get(position);
+        Patient patient = patientList.get(position);
 
-        tvUserID.setText(bp.getPatientId());
-        tvSystolic.setText(bp.getSystolicReading());
-        tvDiastolic.setText(bp.getDiastolicReading());
-        tvDate.setText(bp.getReadingDate());
-        tvTime.setText(bp.getReadingTime());
-        tvCondition.setText(bp.getCondition());
+        tvUserID.setText(patient.getPatientId());
+        tvSystolic.setText(patient.getSystolicReading());
+        tvDiastolic.setText(patient.getDiastolicReading());
+        tvDate.setText(patient.getReadingDate());
+        tvTime.setText(patient.getReadingTime());
+        tvCondition.setText(patient.getCondition());
 
         return listViewItem;
     }

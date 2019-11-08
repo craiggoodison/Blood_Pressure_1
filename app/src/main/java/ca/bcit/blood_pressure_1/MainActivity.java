@@ -4,33 +4,31 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
     TextView patientId;
@@ -46,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
     DatabaseReference databaseBloodPressure;
 
-    ListView lvBloodPressure;
-    List<BloodPressure> bpList;
+    ListView lvPatient;
+    List<Patient> patientList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         TextView time = findViewById(R.id.tvReadingTimeValue);
         TextView date = findViewById(R.id.tvReadingDateValue);
 
-//        Date currTime = Calendar.getInstance().getTime();
         String currTime = new SimpleDateFormat(
                 "HH:mm:ss", Locale.getDefault()).format(new Date());
         String currDate = new SimpleDateFormat(
@@ -84,7 +81,48 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        lvPatient = findViewById(R.id.lvBloodPressure);
+        patientList = new ArrayList<Patient>();
+
+        lvPatient.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Patient patient = patientList.get(position);
+
+                showUpdateDialog(patient.getPatientId(),
+                        patient.getSystolicReading(),
+                        patient.getDiastolicReading(),
+                        patient.getCondition(),
+                        patient.getReadingDate(),
+                        patient.getReadingTime());
+
+                return false;
+            }
+        });
+
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        databaseBloodPressure.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                patientList.clear();
+                for (DataSnapshot patientSnapshot : dataSnapshot.getChildren()) {
+                    Patient patient = patientSnapshot.getValue(Patient.class);
+                    patientList.add(patient);
+                }
+
+                PatientAdapter adapter = new PatientAdapter(MainActivity.this, patientList);
+                lvPatient.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
+        });
+    }
+
     private void addPatient() {
         String patientId = editTextPatientId.getText().toString().trim();
         String readingTime = readingTimeValue.getText().toString().trim();
