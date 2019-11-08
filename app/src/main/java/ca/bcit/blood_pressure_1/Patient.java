@@ -14,7 +14,7 @@ public class Patient {
             this.patientId = patientId;
             this.systolicReading = systolicReading;
             this.diastolicReading = diastolicReading;
-            this.condition =condition;
+            this.condition = condition;
             this.readingTime = readingTime;
             this.readingDate = readingDate;
         }
@@ -47,7 +47,7 @@ public class Patient {
             return condition;
         }
 
-        public void condition(String condition) {
+        public void setCondition(String condition) {
             this.condition = condition;
         }
 
