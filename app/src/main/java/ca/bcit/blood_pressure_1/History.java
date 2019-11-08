@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -22,6 +23,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -139,23 +142,23 @@ public class History extends AppCompatActivity {
         final View dialogView = inflater.inflate(R.layout.update_dialog, null);
         dialogBuilder.setView(dialogView);
 
-        final EditText etUserID = dialogView.findViewById(R.id.etUserID);
+        final EditText etUserID = dialogView.findViewById(R.id.etUserIDValue);
         etUserID.setText(patientId);
 
         final EditText etSystolicReading = dialogView.findViewById(R.id.etSystolicReading);
         etSystolicReading.setText(systolicReading);
 
-        final EditText etDiastolicReading = dialogView.findViewById(R.id.etSystolicReading);
+        final EditText etDiastolicReading = dialogView.findViewById(R.id.etDiastolicReading);
         etDiastolicReading.setText(diastolicReading);
 
-        final EditText etCondition = dialogView.findViewById(R.id.etCondition);
-        etCondition.setText(diastolicReading);
+        final TextView tvCondition = dialogView.findViewById(R.id.tvCondition);
+        tvCondition.setText(condition);
 
-        final EditText etReadingDate  = dialogView.findViewById(R.id.etReadingDate);
-        etReadingDate.setText(diastolicReading);
+        final TextView tvReadingDate  = dialogView.findViewById(R.id.tvReadingDateValue);
+        tvReadingDate.setText(readingDate);
 
-        final EditText etReadingTime  = dialogView.findViewById(R.id.etReadingTime);
-        etReadingTime.setText(diastolicReading);
+        final EditText tvReadingTime  = dialogView.findViewById(R.id.tvReadingTimeValue);
+        tvReadingTime.setText(readingTime);
 
         final Button btnUpdate = dialogView.findViewById(R.id.btnUpdate);
         dialogBuilder.setTitle("Update Patient " + patientId + " " + systolicReading + " " + diastolicReading);
@@ -169,9 +172,9 @@ public class History extends AppCompatActivity {
                 String patientId = etUserID.getText().toString().trim();
                 int systolicReading = Integer.parseInt(etSystolicReading.getText().toString().trim());
                 int diastolicReading = Integer.parseInt(etDiastolicReading.getText().toString().trim());
-                String condition = etCondition.getText().toString().trim();
-                String readingTime = etCondition.getText().toString().trim();
-                String readingDate = etCondition.getText().toString().trim();
+                String condition = tvCondition.getText().toString().trim();
+                String readingTime = tvReadingTime.getText().toString().trim();
+                String readingDate = tvReadingDate.getText().toString().trim();
 
                 if (TextUtils.isEmpty(patientId)) {
                     etUserID.setError("ID is required");
