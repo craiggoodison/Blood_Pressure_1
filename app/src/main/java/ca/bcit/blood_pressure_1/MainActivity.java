@@ -140,11 +140,6 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        if (TextUtils.isEmpty(condition)) {
-            Toast.makeText(this, "You must enter a condition.", Toast.LENGTH_LONG).show();
-            return;
-        }
-
         String id = databaseBloodPressure.push().getKey();
         Patient patient = new Patient(patientId, systolicReadingValue, diastolicReadingValue, condition,
                 readingTime, readingDate);
