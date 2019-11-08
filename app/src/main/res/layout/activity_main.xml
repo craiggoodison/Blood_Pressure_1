@@ -159,7 +159,7 @@
             android:background="#6292D5" />
 
         <ListView
-            android:id="@+id/lvBloodPressure"
+            android:id="@+id/lvPatientList"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

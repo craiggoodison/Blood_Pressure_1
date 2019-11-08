@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        lvPatient = findViewById(R.id.lvBloodPressure);
+        lvPatient = findViewById(R.id.lvPatientList);
         patientList = new ArrayList<Patient>();
 
         lvPatient.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
