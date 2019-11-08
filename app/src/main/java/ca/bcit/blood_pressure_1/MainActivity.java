@@ -259,17 +259,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String patientId = etUserID.getText().toString().trim();
-                String systolicReading = etSystolicReading.getText().toString().trim();
-                String diastolicReading = etDiastolicReading.getText().toString().trim();
+                int systolicReading = Integer.parseInt(etSystolicReading.getText().toString().trim());
+                int diastolicReading = Integer.parseInt(etDiastolicReading.getText().toString().trim());
                 String condition = etCondition.getText().toString().trim();
+                String readingTime = etCondition.getText().toString().trim();
+                String readingDate = etCondition.getText().toString().trim();
 
                 if (TextUtils.isEmpty(patientId)) {
                     etUserID.setError("ID is required");
                     return;
-                } else if (TextUtils.isEmpty(systolicReading)) {
+                } else if (TextUtils.isEmpty(etSystolicReading.getText().toString().trim())) {
                     etSystolicReading.setError("Systolic Reading is required");
                     return;
-                } else if (TextUtils.isEmpty(systolicReading)) {
+                } else if (TextUtils.isEmpty(etDiastolicReading.getText().toString().trim())) {
                     etDiastolicReading.setError("Diastolic Reading is required");
                     return;
                 }
