@@ -193,5 +193,37 @@ public class History extends AppCompatActivity {
                 alertDialog.dismiss();
             }
         });
+
+        final Button btnDelete = dialogView.findViewById(R.id.btnDelete);
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteStudent(patientId);
+
+                alertDialog.dismiss();
+            }
+        });
+    }
+
+    private void deleteStudent(String id) {
+        DatabaseReference dbRef = databaseBloodPressure.child(id);
+
+        Task setRemoveTask = dbRef.removeValue();
+        setRemoveTask.addOnSuccessListener(new OnSuccessListener() {
+            @Override
+            public void onSuccess(Object o) {
+                Toast.makeText(History.this,
+                        "Patient Deleted.",Toast.LENGTH_LONG).show();
+            }
+        });
+
+        setRemoveTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(History.this,
+                        "Something went wrong.\n" + e.toString(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
