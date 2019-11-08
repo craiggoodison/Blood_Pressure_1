@@ -43,8 +43,8 @@ public class Patient {
             return diastolicReading;
         }
 
-        public void setDiastolicReading(int systolicReading) {
-            this.systolicReading = systolicReading;
+        public void setDiastolicReading(int diastolicReading) {
+            this.diastolicReading = diastolicReading;
         }
 
         public String getCondition() {
