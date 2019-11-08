@@ -146,10 +146,10 @@ public class History extends AppCompatActivity {
         etUserID.setText(patientId);
 
         final EditText etSystolicReading = dialogView.findViewById(R.id.etSystolicReading);
-        etSystolicReading.setText(systolicReading);
+        etSystolicReading.setText(String.valueOf(systolicReading));
 
         final EditText etDiastolicReading = dialogView.findViewById(R.id.etDiastolicReading);
-        etDiastolicReading.setText(diastolicReading);
+        etDiastolicReading.setText(String.valueOf(diastolicReading));
 
         final TextView tvCondition = dialogView.findViewById(R.id.tvCondition);
         tvCondition.setText(condition);
@@ -157,7 +157,7 @@ public class History extends AppCompatActivity {
         final TextView tvReadingDate  = dialogView.findViewById(R.id.tvReadingDateValue);
         tvReadingDate.setText(readingDate);
 
-        final EditText tvReadingTime  = dialogView.findViewById(R.id.tvReadingTimeValue);
+        final TextView tvReadingTime  = dialogView.findViewById(R.id.tvReadingTimeValue);
         tvReadingTime.setText(readingTime);
 
         final Button btnUpdate = dialogView.findViewById(R.id.btnUpdate);
