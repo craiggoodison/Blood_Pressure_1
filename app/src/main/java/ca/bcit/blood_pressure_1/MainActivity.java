@@ -31,10 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
-    TextView patientId;
     EditText editTextPatientId;
-    TextView etreadingTime;
-    TextView readingDate;
     TextView readingDateValue;
     TextView readingTimeValue;
     TextView readingCondition;
