@@ -19,35 +19,49 @@ public class Patient {
             this.readingDate = readingDate;
         }
 
-        public String getPatientId() { return patientId; }
+        public String getPatientId() {
+            return patientId;
+        }
 
         public void setPatientId(String patientId) {
             this.patientId = patientId;
         }
 
-        public int getSystolicReading() {return systolicReading;}
+        public int getSystolicReading() {
+            return systolicReading;
+        }
 
         public void setSystolicReading(int systolicReading) {
             this.systolicReading = systolicReading;
         }
 
-        public int getDiastolicReading() {return diastolicReading;}
+        public int getDiastolicReading() {
+            return diastolicReading;
+        }
 
         public void setDiastolicReading(int systolicReading) {
             this.systolicReading = systolicReading;
         }
-//added
-        public String getCondition() {return condition;}
+
+        public String getCondition() {
+            return condition;
+        }
 
         public void condition(String condition) {
             this.condition = condition;
         }
-        public String getReadingTime() {return readingTime;}
+
+        public String getReadingTime() {
+            return readingTime;
+        }
 
         public void setReadingTime(String readingTime) {
             this.readingTime = readingTime;
         }
-        public String getReadingDate() {return readingDate;}
+
+        public String getReadingDate() {
+            return readingDate;
+        }
 
         public void setReadingDate(String readingDate) {
             this.readingDate = readingDate;
