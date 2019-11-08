@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -20,6 +21,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,9 +43,12 @@ public class MainActivity extends AppCompatActivity {
     Button buttonAddPatient;
     EditText systolicReading;
     EditText diastolicReading;
-// addedd
+
     DatabaseReference databaseBloodPressure;
-//added
+
+    ListView lvBloodPressure;
+    List<BloodPressure> bpList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -190,10 +195,6 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "CONSULT YOUR DOCTOR IMMEDIATELY", Toast.LENGTH_LONG).show();
     }
 
-    public void openHistory(View view) {
-        Intent intent = new Intent(this, History.class);
-        startActivity(intent);
-    }
     private void updatePatient(String patientId, int systolicReading, int diastolicReading,
                                String condition, String readingTime, String readingDate ) {
 

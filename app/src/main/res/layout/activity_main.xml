@@ -158,14 +158,10 @@
             android:text="@string/submit"
             android:background="#6292D5" />
 
-        <Button
-            android:id="@+id/btnHistory"
+        <ListView
+            android:id="@+id/lvBloodPressure"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/history"
-            android:background="#B64DA2"
-            android:onClick="openHistory" />
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
