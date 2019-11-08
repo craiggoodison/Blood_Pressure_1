@@ -131,9 +131,6 @@ public class MainActivity extends AppCompatActivity {
         int systolicReadingValue = Integer.parseInt(systolicReading.getText().toString());
         int diastolicReadingValue = Integer.parseInt(diastolicReading.getText().toString());
 
-//            String lastName = editTextLastName.getText().toString().trim();
-//            String school = spinnerSchool.getSelectedItem().toString().trim();
-
         if (TextUtils.isEmpty(patientId)) {
             Toast.makeText(this, "You must enter the patient's ID.",
                     Toast.LENGTH_LONG).show();
