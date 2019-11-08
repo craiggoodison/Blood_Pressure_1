@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     Button buttonAddPatient;
     EditText systolicReading;
     EditText diastolicReading;
-
+// addedd
     DatabaseReference databaseBloodPressure;
 //added
     @Override
