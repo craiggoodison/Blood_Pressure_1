@@ -9,6 +9,10 @@ public class Patient {
         String readingTime;
         String readingDate;
 
+        public Patient() {
+
+        }
+
         public Patient(String patientId, int systolicReading, int diastolicReading,
                        String condition, String readingTime,  String readingDate) {
             this.patientId = patientId;
