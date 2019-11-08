@@ -2,6 +2,8 @@ package ca.bcit.blood_pressure_1;
 
 public class BloodPressure {
 
+    private String condition;
+
     private int diastolicReading;
 
     private String patientId;
@@ -12,6 +14,12 @@ public class BloodPressure {
 
     private int systolicReading;
 
+    public void setCondition(String condition){
+        this.condition = condition;
+    }
+    public String getCondition(){
+        return this.condition;
+    }
     public void setDiastolicReading(int diastolicReading){
         this.diastolicReading = diastolicReading;
     }
