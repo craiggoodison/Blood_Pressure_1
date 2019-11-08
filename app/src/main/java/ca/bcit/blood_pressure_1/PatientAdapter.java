@@ -46,8 +46,8 @@ public class PatientAdapter extends ArrayAdapter<Patient> {
         Patient patient = patientList.get(position);
 
         tvUserID.setText(patient.getPatientId());
-        tvSystolic.setText(patient.getSystolicReading());
-        tvDiastolic.setText(patient.getDiastolicReading());
+        tvSystolic.setText(String.valueOf(patient.getSystolicReading()));
+        tvDiastolic.setText(String.valueOf(patient.getDiastolicReading()));
         tvDate.setText(patient.getReadingDate());
         tvTime.setText(patient.getReadingTime());
         tvCondition.setText(patient.getCondition());
