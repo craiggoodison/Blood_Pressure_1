@@ -40,6 +40,18 @@ public class MainActivity extends AppCompatActivity {
     EditText systolicReading;
     EditText diastolicReading;
 
+
+
+    private String userId;
+    private int systolicReading_;
+    private int diastolicReading_;
+    private String systolicReadingDate;
+    private String diastolicReadingDate;
+    private String condition;
+    private int seconds;
+    private boolean running;
+    private boolean wasRunning;
+
     DatabaseReference databaseBloodPressure;
 
     @Override
@@ -76,7 +88,66 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        if (savedInstanceState != null) {
+            userId = savedInstanceState.getString("User ID");
+            systolicReading_ = savedInstanceState.getInt("Systolic Reading");
+            diastolicReading_ = savedInstanceState.getInt("Diastolic Reading");
+            systolicReadingDate = savedInstanceState.getString("Systolic Reading Date");
+            diastolicReadingDate = savedInstanceState.getString("Diastolic Reading Date");
+            condition = savedInstanceState.getString("Condition");
+            running = savedInstanceState.getBoolean("Running");
+            wasRunning = savedInstanceState.getBoolean("Running");
+            seconds = savedInstanceState.getInt("seconds");
+        }
+
     }
+    // Start the stopwatch running when the Start button is clicked
+    public void onClickStart(View v) {
+        running = true;
+    }
+
+    // Stop the stopwatch running when the Stop button is clicked
+    public void onClickStop(View v) {
+        running = false;
+    }
+
+    // Reset the stopwatch when the Reset button is clicked
+    public void onClickReset(View v) {
+        running = false;
+        seconds = 0;
+
+    }
+//    protected void onStop() {
+//        super.onStop();
+//        wasRunning = running;
+//        running = false;
+//    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        if (wasRunning) {
+//            running = true;
+//        }
+//    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        wasRunning = running;
+        running = false;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (wasRunning) {
+            running = true;
+        }
+    }
+
+
+
+
+
 
     /**
      * Adds patient into Firebase Database.
@@ -190,6 +261,22 @@ public class MainActivity extends AppCompatActivity {
     public void hypertensiveWarning(View view) {
         Toast.makeText(this, "CONSULT YOUR DOCTOR IMMEDIATELY", Toast.LENGTH_LONG).show();
     }
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putString("User ID", userId);
+        savedInstanceState.putInt("Systolic Reading", systolicReading_);
+        savedInstanceState.putInt("Diastolic Reading", diastolicReading_);
+        savedInstanceState.putString("Systolic Reading Date", systolicReadingDate);
+        savedInstanceState.putString("Diastolic Reading Date", diastolicReadingDate);
+        savedInstanceState.putString("Condition", condition);
+        savedInstanceState.putBoolean("Running", running);
+        savedInstanceState.putBoolean("wasRunning", running);
+        savedInstanceState.putInt("seconds", seconds);
+        savedInstanceState.putBoolean("running", running);
+
+    }
+
 
 //    /**
 //     * Updates patient information.
