@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Locale;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -40,17 +41,15 @@ public class MainActivity extends AppCompatActivity {
     EditText systolicReading;
     EditText diastolicReading;
 
+    // Saving values
 
+    private String savedReadingDate;
+    private String savedReadingTime;
 
-    private String userId;
-    private int systolicReading_;
-    private int diastolicReading_;
-    private String systolicReadingDate;
-    private String diastolicReadingDate;
-    private String condition;
-    private int seconds;
-    private boolean running;
-    private boolean wasRunning;
+    String currTime;
+    String currDate;
+
+    SharedPreferences savedValues;
 
     DatabaseReference databaseBloodPressure;
 
@@ -62,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
         TextView time = findViewById(R.id.tvReadingTimeValue);
         TextView date = findViewById(R.id.tvReadingDateValue);
 
-        String currTime = new SimpleDateFormat(
+        currTime = new SimpleDateFormat(
                 "HH:mm:ss", Locale.getDefault()).format(new Date());
-        String currDate = new SimpleDateFormat(
+        currDate = new SimpleDateFormat(
                 "dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
         time.setText(currTime);
@@ -88,60 +87,37 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if (savedInstanceState != null) {
-            userId = savedInstanceState.getString("User ID");
-            systolicReading_ = savedInstanceState.getInt("Systolic Reading");
-            diastolicReading_ = savedInstanceState.getInt("Diastolic Reading");
-            systolicReadingDate = savedInstanceState.getString("Systolic Reading Date");
-            diastolicReadingDate = savedInstanceState.getString("Diastolic Reading Date");
-            condition = savedInstanceState.getString("Condition");
-            running = savedInstanceState.getBoolean("Running");
-            wasRunning = savedInstanceState.getBoolean("Running");
-            seconds = savedInstanceState.getInt("seconds");
-        }
+        savedValues = getSharedPreferences("SavedValues", MODE_PRIVATE);
 
     }
-    // Start the stopwatch running when the Start button is clicked
-    public void onClickStart(View v) {
-        running = true;
-    }
 
-    // Stop the stopwatch running when the Stop button is clicked
-    public void onClickStop(View v) {
-        running = false;
-    }
-
-    // Reset the stopwatch when the Reset button is clicked
-    public void onClickReset(View v) {
-        running = false;
-        seconds = 0;
-
-    }
-//    protected void onStop() {
-//        super.onStop();
-//        wasRunning = running;
-//        running = false;
-//    }
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        if (wasRunning) {
-//            running = true;
-//        }
-//    }
+    /**
+     * Overrides onResume.
+     */
     @Override
-    protected void onPause() {
-        super.onPause();
-        wasRunning = running;
-        running = false;
-    }
-
-    @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
-        if (wasRunning) {
-            running = true;
-        }
+
+        // get the instance variables
+        savedReadingDate = savedValues.getString("ReadingDate", currDate);
+        savedReadingTime = savedValues.getString("ReadingTime", currTime);
+
+        readingDateValue.setText(savedReadingDate);
+        readingTimeValue.setText(savedReadingTime);
+
+    }
+
+    /**
+     * Overrides onPause.
+     */
+    @Override
+    public void onPause() {
+        SharedPreferences.Editor editor = savedValues.edit();
+        editor.putString("ReadingDate", savedReadingDate);
+        editor.putString("ReadingTime", savedReadingTime);
+        editor.commit();
+
+        super.onPause();
     }
 
     /**
@@ -174,7 +150,9 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Patient added.", Toast.LENGTH_LONG).show();
 
                 editTextPatientId.setText("");
-//                    editTextLastName.setText("");
+                readingCondition.setText("");
+                systolicReading.setText("");
+                diastolicReading.setText("");
 
             }
         });
@@ -262,22 +240,6 @@ public class MainActivity extends AppCompatActivity {
     public void hypertensiveWarning(View view) {
         Toast.makeText(this, "CONSULT YOUR DOCTOR IMMEDIATELY", Toast.LENGTH_LONG).show();
     }
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putString("User ID", userId);
-        savedInstanceState.putInt("Systolic Reading", systolicReading_);
-        savedInstanceState.putInt("Diastolic Reading", diastolicReading_);
-        savedInstanceState.putString("Systolic Reading Date", systolicReadingDate);
-        savedInstanceState.putString("Diastolic Reading Date", diastolicReadingDate);
-        savedInstanceState.putString("Condition", condition);
-        savedInstanceState.putBoolean("Running", running);
-        savedInstanceState.putBoolean("wasRunning", running);
-        savedInstanceState.putInt("seconds", seconds);
-        savedInstanceState.putBoolean("running", running);
-
-    }
-
 
     /**
      * Opens history activity containing data stored.
