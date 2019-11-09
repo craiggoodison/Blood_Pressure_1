@@ -144,11 +144,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
-
-
-
     /**
      * Adds patient into Firebase Database.
      */
@@ -167,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         String id = databaseBloodPressure.push().getKey();
-        Patient patient = new Patient(patientId, systolicReadingValue, diastolicReadingValue, condition,
+        Patient patient = new Patient(id, patientId, systolicReadingValue, diastolicReadingValue, condition,
                 readingTime, readingDate);
 
                 //new Patient(patientId, systolicReading, diastolicReading, condition, readingTime, readingDate);

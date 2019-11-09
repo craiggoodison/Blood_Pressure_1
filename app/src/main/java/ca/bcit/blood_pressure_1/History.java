@@ -51,7 +51,8 @@ public class History extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Patient patient = patientList.get(position);
 
-                showUpdateDialog(patient.getPatientId(),
+                showUpdateDialog(patient.getUID(),
+                        patient.getPatientId(),
                         patient.getSystolicReading(),
                         patient.getDiastolicReading(),
                         patient.getCondition(),
@@ -87,6 +88,7 @@ public class History extends AppCompatActivity {
 
     /**
      * Updates patient information.
+     * @param uID
      * @param patientId
      * @param systolicReading
      * @param diastolicReading
@@ -94,12 +96,12 @@ public class History extends AppCompatActivity {
      * @param readingTime
      * @param readingDate
      */
-    private void updatePatient(String patientId, int systolicReading, int diastolicReading,
+    private void updatePatient(String uID, String patientId, int systolicReading, int diastolicReading,
                                String condition, String readingTime, String readingDate ) {
 
-        DatabaseReference dbRef = databaseBloodPressure.child(patientId);
+        DatabaseReference dbRef = databaseBloodPressure.child(uID);
 
-        Patient patient = new Patient(patientId, systolicReading, diastolicReading, condition,
+        Patient patient = new Patient(uID, patientId, systolicReading, diastolicReading, condition,
                 readingTime, readingDate);
 
         Task setValueTask = dbRef.setValue(patient);
@@ -131,7 +133,7 @@ public class History extends AppCompatActivity {
      * @param readingDate
      * @param readingTime
      */
-    private void showUpdateDialog(final String patientId, int systolicReading, int diastolicReading,
+    private void showUpdateDialog(final String uID, final String patientId, int systolicReading, int diastolicReading,
                                   String condition, final String readingDate, final String readingTime) {
 
 
@@ -161,7 +163,7 @@ public class History extends AppCompatActivity {
         tvReadingTime.setText(readingTime);
 
         final Button btnUpdate = dialogView.findViewById(R.id.btnUpdate);
-        dialogBuilder.setTitle("Update Patient " + patientId + " " + systolicReading + " " + diastolicReading);
+        dialogBuilder.setTitle("Update Patient " + uID);
 
         final AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.show();
@@ -187,7 +189,7 @@ public class History extends AppCompatActivity {
                     return;
                 }
 
-                updatePatient(patientId, systolicReading, diastolicReading, condition,
+                updatePatient(uID, patientId, systolicReading, diastolicReading, condition,
                         readingTime, readingDate);
 
                 alertDialog.dismiss();
@@ -198,7 +200,7 @@ public class History extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteStudent(patientId);
+                deleteStudent(uID);
 
                 alertDialog.dismiss();
             }
@@ -207,7 +209,6 @@ public class History extends AppCompatActivity {
 
     private void deleteStudent(String id) {
         DatabaseReference dbRef = databaseBloodPressure.child(id);
-
         Task setRemoveTask = dbRef.removeValue();
         setRemoveTask.addOnSuccessListener(new OnSuccessListener() {
             @Override
