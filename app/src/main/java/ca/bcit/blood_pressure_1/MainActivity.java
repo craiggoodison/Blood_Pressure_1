@@ -83,8 +83,8 @@ public class MainActivity extends AppCompatActivity {
         buttonAddPatient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setCondition(v);
-                addPatient();
+                if (setCondition(v))
+                    addPatient();
             }
         });
 
@@ -156,8 +156,7 @@ public class MainActivity extends AppCompatActivity {
         int diastolicReadingValue = Integer.parseInt(diastolicReading.getText().toString());
 
         if (TextUtils.isEmpty(patientId)) {
-            Toast.makeText(this, "You must enter the patient's ID.",
-                    Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "ID field empty.", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -194,12 +193,19 @@ public class MainActivity extends AppCompatActivity {
      * Determines condition based on systolic and diastolic readings.
      * @param view
      */
-    public void setCondition(View view) {
+    public boolean setCondition(View view) {
         final String normal = "Normal";
         final String elevated = "Elevated";
         final String stage1 = "High Blood Pressure (Stage 1)";
         final String stage2 = "High Blood Pressure (Stage 2)";
         final String hypertensiveCrisis = "Hypertensive Crisis";
+
+        if (systolicReading.getText().toString().equals("") ||
+                systolicReading.getText().toString().equals("")) {
+            Toast.makeText(this, "Systolic or Diastolic field(s) empty.",
+                    Toast.LENGTH_LONG).show();
+            return false;
+        }
 
         int systolic = Integer.parseInt(systolicReading.getText().toString());
         int diastolic = Integer.parseInt(diastolicReading.getText().toString());
@@ -246,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
             readingCondition.setText(hypertensiveCrisis);
             hypertensiveWarning(view);
         }
-
+        return true;
     }
 
     /**
