@@ -159,18 +159,22 @@
             android:background="#6292D5" />
 
         <Button
-            android:id="@+id/btnHistory"
+        android:id="@+id/btnHistory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/history"
+        android:background="#B662D5"
+        android:onClick="openHistory" />
+
+        <Button
+            android:id="@+id/btnAverage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/history"
             android:background="#B662D5"
-            android:onClick="openHistory" />
-
-<!--        <ListView-->
-<!--            android:id="@+id/lvPatientList"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent" />-->
+            android:onClick="openAverage" />
 
     </LinearLayout>
 

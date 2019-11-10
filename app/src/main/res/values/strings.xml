@@ -13,4 +13,6 @@
     <string name="hintCondition">Condition</string>
     <string name="update">Update</string>
     <string name="delete">Delete</string>
+    <string name="m2dAvg">Month-to-Date Average for all users</string>
+    <string name="avgCondition">Average Condition</string>
 </resources>

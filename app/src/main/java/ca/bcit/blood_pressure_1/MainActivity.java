@@ -41,11 +41,6 @@ public class MainActivity extends AppCompatActivity {
     EditText systolicReading;
     EditText diastolicReading;
 
-    // Saving values
-
-    private String savedReadingDate;
-    private String savedReadingTime;
-
     String currTime;
     String currDate;
 
@@ -58,19 +53,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView time = findViewById(R.id.tvReadingTimeValue);
-        TextView date = findViewById(R.id.tvReadingDateValue);
-
-        currTime = new SimpleDateFormat(
-                "HH:mm:ss", Locale.getDefault()).format(new Date());
-        currDate = new SimpleDateFormat(
-                "dd-MM-yyyy", Locale.getDefault()).format(new Date());
-
-        time.setText(currTime);
-        date.setText(currDate);
-
-        databaseBloodPressure = FirebaseDatabase.getInstance().getReference("BloodPressure");
-
         editTextPatientId = findViewById(R.id.etUserID);
         readingDateValue = findViewById(R.id.tvReadingDateValue);
         readingTimeValue = findViewById(R.id.tvReadingTimeValue);
@@ -78,6 +60,16 @@ public class MainActivity extends AppCompatActivity {
         systolicReading = findViewById(R.id.etSystolicReading);
         diastolicReading = findViewById(R.id.etDiastolicReading);
         buttonAddPatient = findViewById(R.id.btnSubmit);
+
+        currTime = new SimpleDateFormat(
+                "HH:mm:ss", Locale.getDefault()).format(new Date());
+        currDate = new SimpleDateFormat(
+                "dd-MM-yyyy", Locale.getDefault()).format(new Date());
+
+        readingTimeValue.setText(currTime);
+        readingDateValue.setText(currDate);
+
+        databaseBloodPressure = FirebaseDatabase.getInstance().getReference("BloodPressure");
 
         buttonAddPatient.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,21 +83,21 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * Overrides onResume.
-     */
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        // get the instance variables
-        savedReadingDate = savedValues.getString("ReadingDate", currDate);
-        savedReadingTime = savedValues.getString("ReadingTime", currTime);
-
-        readingDateValue.setText(savedReadingDate);
-        readingTimeValue.setText(savedReadingTime);
-
-    }
+//    /**
+////     * Overrides onResume.
+////     */
+////    @Override
+////    public void onResume() {
+////        super.onResume();
+////
+////        // get the instance variables
+////        currDate = savedValues.getString("ReadingDate", currDate);
+////        currTime = savedValues.getString("ReadingTime", currTime);
+////
+////        readingDateValue.setText(currDate);
+////        readingTimeValue.setText(currTime);
+////
+////    }
 
     /**
      * Overrides onPause.
@@ -113,8 +105,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         SharedPreferences.Editor editor = savedValues.edit();
-        editor.putString("ReadingDate", savedReadingDate);
-        editor.putString("ReadingTime", savedReadingTime);
+        editor.putString("ReadingDate", currDate);
+        editor.putString("ReadingTime", currTime);
         editor.commit();
 
         super.onPause();
@@ -137,8 +129,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         String id = databaseBloodPressure.push().getKey();
-        Patient patient = new Patient(id, patientId, systolicReadingValue, diastolicReadingValue, condition,
-                readingTime, readingDate);
+        Patient patient = new Patient(id, patientId, systolicReadingValue, diastolicReadingValue,
+                condition, readingTime, readingDate);
 
                 //new Patient(patientId, systolicReading, diastolicReading, condition, readingTime, readingDate);
 
@@ -247,6 +239,15 @@ public class MainActivity extends AppCompatActivity {
      */
     public void openHistory(View view) {
         Intent intent = new Intent(this, History.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Opens average activity.
+     * @param view
+     */
+    public void openAverage(View view) {
+        Intent intent = new Intent(this, Average.class);
         startActivity(intent);
     }
 
