@@ -15,4 +15,5 @@
     <string name="delete">Delete</string>
     <string name="m2dAvg">Month-to-Date Average for all users</string>
     <string name="avgCondition">Average Condition</string>
+    <string name="average">Average</string>
 </resources>

@@ -142,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Patient added.", Toast.LENGTH_LONG).show();
 
                 editTextPatientId.setText("");
-                readingCondition.setText("");
                 systolicReading.setText("");
                 diastolicReading.setText("");
 
