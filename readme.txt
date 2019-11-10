@@ -13,3 +13,8 @@ Major Challenges:
 
     2) Had trouble connecting to firebase.
 
+Instructions:
+
+    Accessing Month-to-Date Average
+        History -> Long-press on a list item -> Select 'Average' in dialog box
+
