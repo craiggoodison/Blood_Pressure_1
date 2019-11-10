@@ -26,8 +26,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class History extends AppCompatActivity {
 
@@ -36,10 +39,18 @@ public class History extends AppCompatActivity {
     ListView lvPatient;
     List<Patient> patientList;
 
+    int totalSystolic;
+    int totalDiastolic;
+    String pId;
+    String currDate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+
+        currDate = new SimpleDateFormat(
+                "MM-yyyy", Locale.getDefault()).format(new Date());
 
         databaseBloodPressure = FirebaseDatabase.getInstance().getReference("BloodPressure");
 
@@ -50,6 +61,23 @@ public class History extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Patient patient = patientList.get(position);
+                totalSystolic = 0;
+                totalDiastolic = 0;
+                int entries = 0;
+
+                for (Patient p : patientList) {
+                    if (p.getPatientId().equalsIgnoreCase(patient.getPatientId()) &&
+                            p.getReadingDate().contains(currDate)) {
+                        entries++;
+                        totalSystolic += p.getSystolicReading();
+                        totalDiastolic += p.getDiastolicReading();
+                    }
+                }
+
+                pId = patient.getPatientId();
+                totalSystolic /= entries;
+                totalDiastolic /= entries;
+
 
                 showUpdateDialog(patient.getUID(),
                         patient.getPatientId(),
@@ -200,14 +228,56 @@ public class History extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteStudent(uID);
+                deletePatient(uID);
+
+                alertDialog.dismiss();
+            }
+        });
+
+        final Button btnAverage = dialogView.findViewById(R.id.btnAverage);
+        btnAverage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAverageView(pId, totalSystolic, totalDiastolic);
 
                 alertDialog.dismiss();
             }
         });
     }
 
-    private void deleteStudent(String id) {
+    /**
+     * Dialog that shows the average for selected patient.
+     * @param systolic
+     * @param diastolic
+     */
+    private void showAverageView(final String pId, final int systolic, final int diastolic) {
+        String title = "Month-to-Date Average for " + pId;
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(History.this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.average_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        final TextView dialogTitle = dialogView.findViewById(R.id.tvMonthToDateAvg);
+        dialogTitle.setText(title);
+
+        final TextView tvSystolic = dialogView.findViewById(R.id.tvSystolicReading);
+        tvSystolic.setText(String.valueOf(systolic));
+
+        final TextView tvDiastolic  = dialogView.findViewById(R.id.tvDiastolicReading);
+        tvDiastolic.setText(String.valueOf(diastolic));
+
+        final TextView tvAvgCondition = dialogView.findViewById(R.id.tvCondition);
+        tvAvgCondition.setText(setCondition(systolic, diastolic));
+
+        final AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
+    }
+
+    /**
+     * Deletes patient data from database.
+     * @param id
+     */
+    private void deletePatient(String id) {
         DatabaseReference dbRef = databaseBloodPressure.child(id);
         Task setRemoveTask = dbRef.removeValue();
         setRemoveTask.addOnSuccessListener(new OnSuccessListener() {
@@ -226,5 +296,58 @@ public class History extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    /**
+     * Determines condition based on systolic and diastolic readings.
+     * @param totalSystolic int
+     * @param totalDiastolic int
+     * @return string
+     */
+    public String setCondition(int totalSystolic, int totalDiastolic) {
+        final String normal = "Normal";
+        final String elevated = "Elevated";
+        final String stage1 = "High Blood Pressure (Stage 1)";
+        final String stage2 = "High Blood Pressure (Stage 2)";
+        final String hypertensiveCrisis = "Hypertensive Crisis";
+
+
+        if (totalSystolic < 120) {
+            if (totalDiastolic < 80) {
+                return normal;
+            } else if (totalDiastolic <= 89) {
+                return stage1;
+            } else if (totalDiastolic <= 120) {
+                return stage2;
+            } else {
+                return hypertensiveCrisis;
+            }
+        } else if (totalSystolic <= 129) {
+            if (totalDiastolic < 80) {
+                return elevated;
+            } else if (totalDiastolic <= 89) {
+                return stage1;
+            } else if (totalDiastolic <= 120) {
+                return stage2;
+            } else {
+                return hypertensiveCrisis;
+            }
+        } else if (totalSystolic <= 139) {
+            if (totalDiastolic > 120) {
+                return hypertensiveCrisis;
+            } else if (totalDiastolic >= 90) {
+                return stage2;
+            } else {
+                return stage1;
+            }
+        } else if (totalSystolic <= 180) {
+            if (totalDiastolic > 120) {
+                return hypertensiveCrisis;
+            } else {
+                return stage2;
+            }
+        } else {
+            return hypertensiveCrisis;
+        }
     }
 }

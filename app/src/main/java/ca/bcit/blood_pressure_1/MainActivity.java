@@ -241,15 +241,5 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /**
-     * Opens average activity.
-     * @param view
-     */
-    public void openAverage(View view) {
-        Intent intent = new Intent(this, Average.class);
-        startActivity(intent);
-    }
-
-
 }
 
