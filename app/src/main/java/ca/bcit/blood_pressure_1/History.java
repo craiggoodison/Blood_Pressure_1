@@ -251,7 +251,7 @@ public class History extends AppCompatActivity {
      * @param diastolic
      */
     private void showAverageView(final String pId, final int systolic, final int diastolic) {
-        String title = "Month-to-Date Average for " + pId;
+        String title = "Month-to-Date Average for " + pId + " on " + currDate;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(History.this);
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.average_dialog, null);
