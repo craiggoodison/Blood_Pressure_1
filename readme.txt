@@ -3,10 +3,13 @@ Craig Goodison  A0
 
 Not completed:
 
-    1) Calculating Average: The app currently calculates the average of all data stored in the database.
+    None
 
 Major Challenges:
 
-    1) Collecting data for EACH user.
+    1) Month-to-Date Average
+        - Extracting data for each user.
+        - Hard to think of different ways to collect the data.
+
     2) Had trouble connecting to firebase.
 
